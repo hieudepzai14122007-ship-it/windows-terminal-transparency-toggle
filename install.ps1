@@ -1,7 +1,10 @@
 [CmdletBinding()]
 param(
     [ValidateRange(1, 100)]
-    [int]$DefaultOpacity = 8
+    [int]$DefaultOpacity = 8,
+
+    [Alias('Acrylic')]
+    [switch]$Blur
 )
 
 Set-StrictMode -Version Latest
@@ -56,7 +59,7 @@ foreach ($profilePath in $profilePaths) {
     [System.IO.File]::WriteAllText($profilePath, $newContent, $utf8WithoutBom)
 }
 
-& $installedScript $DefaultOpacity
+& $installedScript $DefaultOpacity -Blur:$Blur
 
 Write-Host ''
 Write-Host 'Installed Terminal Transparency Toggle.' -ForegroundColor Green

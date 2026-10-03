@@ -5,6 +5,10 @@ param(
     [int]$Opacity,
 
     [Parameter()]
+    [Alias('Acrylic')]
+    [switch]$Blur,
+
+    [Parameter()]
     [string]$SettingsPath
 )
 
@@ -86,7 +90,8 @@ if (-not (Test-Path -LiteralPath $backupPath)) {
 }
 
 Set-ObjectProperty -InputObject $settings.profiles.defaults -Name 'opacity' -Value $newOpacity
-Set-ObjectProperty -InputObject $settings.profiles.defaults -Name 'useAcrylic' -Value $false
+$useAcrylic = $Blur.IsPresent -and $newOpacity -lt $solidOpacity
+Set-ObjectProperty -InputObject $settings.profiles.defaults -Name 'useAcrylic' -Value $useAcrylic
 
 $json = $settings | ConvertTo-Json -Depth 100
 $utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
@@ -94,6 +99,9 @@ $utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
 
 if ($newOpacity -eq $solidOpacity) {
     Write-Host 'Terminal transparency: OFF (solid)' -ForegroundColor Cyan
+}
+elseif ($useAcrylic) {
+    Write-Host "Terminal transparency: $newOpacity% opacity (blurred)" -ForegroundColor Cyan
 }
 else {
     Write-Host "Terminal transparency: $newOpacity% opacity" -ForegroundColor Cyan

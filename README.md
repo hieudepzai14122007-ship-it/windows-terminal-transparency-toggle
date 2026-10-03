@@ -9,7 +9,7 @@ tt 70
 tt 100
 ```
 
-Run `tt` without a number to toggle between 8% opacity and fully solid. The effect is unblurred transparency, and it applies to every Windows Terminal profile through `profiles.defaults`.
+Run `tt` without a number to toggle between 8% opacity and fully solid. By default the effect is clear, unblurred transparency. Add `-Blur` for a frosted, translucent (acrylic) background instead. Changes apply to every Windows Terminal profile through `profiles.defaults`.
 
 ## Requirements
 
@@ -33,6 +33,12 @@ Open a new PowerShell window after installation. The installer sets the initial 
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -DefaultOpacity 25
 ```
 
+To start with the blurred, translucent look:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -DefaultOpacity 60 -Blur
+```
+
 ## Usage
 
 Set an exact opacity percentage from 1 to 100:
@@ -46,6 +52,15 @@ Toggle between 8% opacity and solid:
 ```powershell
 tt
 ```
+
+Use a blurred, translucent (acrylic) background instead of clear transparency:
+
+```powershell
+tt 60 -Blur
+tt -Blur
+```
+
+`-Acrylic` works as an alias for `-Blur`. Running `tt` with a number but without `-Blur` switches back to clear transparency. Blur is easier to read through at higher opacity values such as 50 to 80.
 
 Return to a completely solid background:
 
@@ -70,7 +85,7 @@ Uninstalling removes the `tt` command but leaves the current opacity unchanged. 
 The first time `tt` runs, it creates `settings.json.tt-backup` next to your Windows Terminal settings file. The tool only changes these shared profile defaults:
 
 - `opacity`
-- `useAcrylic` (kept disabled for clear, unblurred transparency)
+- `useAcrylic` (disabled for clear transparency, enabled only when you pass `-Blur`)
 
 ## License
 
