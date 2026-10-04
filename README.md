@@ -36,7 +36,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1 -DefaultOpacity 25
 To start with the blurred, translucent look:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\install.ps1 -DefaultOpacity 60 -Blur
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -DefaultOpacity 25 -Blur
 ```
 
 ## Usage
@@ -56,11 +56,11 @@ tt
 Use a blurred, translucent (acrylic) background instead of clear transparency:
 
 ```powershell
-tt 60 -Blur
+tt 25 -Blur
 tt -Blur
 ```
 
-`-Acrylic` works as an alias for `-Blur`. Running `tt` with a number but without `-Blur` switches back to clear transparency. Blur is easier to read through at higher opacity values such as 50 to 80.
+`-Acrylic` works as an alias for `-Blur`. Running `tt` with a number but without `-Blur` switches back to clear transparency. With dark color schemes, blur looks best at low opacity values such as 15 to 30; higher values mostly just darken the background. If blur does not appear, make sure **Settings > Personalization > Colors > Transparency effects** is on and energy saver is off.
 
 Return to a completely solid background:
 
